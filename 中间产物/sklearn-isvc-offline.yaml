@@ -1,0 +1,14 @@
+apiVersion: serving.kserve.io/v1beta1
+kind: InferenceService
+metadata:
+  name: sklearn-iris-offline
+  namespace: default
+spec:
+  predictor:
+    model:
+      modelFormat:
+        name: sklearn
+      runtime: kserve-sklearnserver
+      # 离线版：模型来自节点上的 hostPath PV，走 pvc:// 直挂，不下载、不联网
+      # 注意后面【不要】加 /model.joblib —— path 会被当成 SubPath，/mnt/models 会变成文件
+      storageUri: "pvc://model-pvc"

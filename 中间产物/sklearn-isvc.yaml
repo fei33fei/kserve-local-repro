@@ -1,0 +1,17 @@
+apiVersion: serving.kserve.io/v1beta1
+kind: InferenceService
+metadata:
+  name: sklearn-iris
+  namespace: default
+spec:
+  predictor:
+    model:
+      modelFormat:
+        name: sklearn
+      runtime: kserve-sklearnserver
+      # 关键修复：
+      # 原值 https://storage.googleapis.com/kfserving-examples/models/sklearn/1.0/model
+      # 指向的是 GCS 的“目录”前缀，对 https 而言不是一个真实对象，GET 返回 404。
+      # storage-initializer 对 http(s) 只做单文件 GET（kserve_storage.py:_download_from_uri），
+      # 所以必须指向真实文件本身。
+      storageUri: "https://storage.googleapis.com/kfserving-examples/models/sklearn/1.0/model/model.joblib"

@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mirror-test
+  namespace: default
+spec:
+  containers:
+    - name: test
+      image: hello-world
+      command: ["echo", "MIRROR-PULL-OK"]
+  restartPolicy: Never

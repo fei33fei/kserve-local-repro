@@ -1,0 +1,7 @@
+server = "https://quay.io"
+
+[host."https://quay.m.daocloud.io"]
+  capabilities = ["pull", "resolve"]
+
+[host."https://quay.1ms.run"]
+  capabilities = ["pull", "resolve"]
